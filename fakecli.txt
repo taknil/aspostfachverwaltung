@@ -1,0 +1,18 @@
+*** Postfachverwaltung ***
+--- Aktionen --
+Paket einbuchen (a)
+Paket abholen (b)
+--- Pakete ---
+Postfach Inventar anzeigen (c)
+Historie der Einbuchungen anzeigen (d)
+Historie der Ausbuchungen anzeigen (e)
+--- Postfächer ---
+Liste der Postfächer Anzeigen (f)
+Postfach anlegen (g)
+--- Empfänger ---
+Neuen Empfänger Anlegen (g)
+Empfänger Anzeigen (j)
+--- Extra ---
+Konfiguration (k)
+Verlassen (q)
+
