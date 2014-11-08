@@ -48,7 +48,8 @@ namespace PaVe
             {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new MainGUI());
+                //Application.Run(new MainGUI());
+                Application.Run(new MainGui_2());
             }
             else
             {
