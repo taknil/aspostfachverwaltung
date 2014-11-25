@@ -1,18 +1,24 @@
 ﻿using PaVe.DataLayer.Tables;
 using System;
 using System.Collections.Generic;
+using System.Data.Linq;
+using System.Data.Linq.Mapping;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading;
+using PaVe.Utils;
 
 namespace PaVe.DataLayer.IMDB
 {
     [Serializable]
+    [Database]
     sealed class InMeDatabase
     {
-        public const string DatabaseFile = "database.xml";
+        public bool UseSQL = false;
+
+        public const string DatabaseFile = @"DataLayer\IMDB\Database.xml";
         private static readonly DataContractSerializer _Serializer;
 
         public static InMeDatabase Current { get; private set; }
@@ -48,6 +54,10 @@ namespace PaVe.DataLayer.IMDB
             {
                 Current = new InMeDatabase();
             }
+            catch(DirectoryNotFoundException)
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(DatabaseFile));
+            }
         }
 
         public static InMeDatabase ReadCurrent(string file)
@@ -58,8 +68,16 @@ namespace PaVe.DataLayer.IMDB
 
         public void Save()
         {
-            Console.WriteLine("Trying to Save at {0}", DateTime.Now);
-            SaveCurrent(DatabaseFile);
+            if(UseSQL)
+            {
+                SQL.Helper sql = new SQL.Helper(SQL.Helper.DatabaseFile);
+                sql.SubmitChanges();
+            }
+            else
+            {
+                Console.WriteLine("Trying to Save at {0}", DateTime.Now);
+                SaveCurrent(DatabaseFile);
+            }
         }
     }
 }

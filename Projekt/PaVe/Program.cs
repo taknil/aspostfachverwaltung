@@ -48,12 +48,12 @@ namespace PaVe
             {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                //Application.Run(new MainGUI());
-                Application.Run(new MainGui_2());
+                Application.Run(new MainGui());
             }
             else
             {
                 MainCli cli = new MainCli();
+                cli.Start();
             }
 
             Database.Save();

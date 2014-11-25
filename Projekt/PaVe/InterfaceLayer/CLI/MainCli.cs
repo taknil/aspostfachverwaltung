@@ -34,6 +34,10 @@ namespace PaVe.InterfaceLayer.CLI
         public MainCli()
         {
             CmdSpawn.ShowConsoleWindow();
+        }
+
+        public void Start()
+        {
             ConsoleKeyInfo select = new ConsoleKeyInfo();
 
             History.AddFirst(Page.Main);
@@ -58,7 +62,7 @@ namespace PaVe.InterfaceLayer.CLI
 
                 Load(current, input);
             } while (ConsoleKey.Escape != select.Key);
-            
+
             Console.WriteLine("Close CLI...");
             Console.ReadKey(); // debug
         }
@@ -190,7 +194,7 @@ namespace PaVe.InterfaceLayer.CLI
         {
             Console.Clear();
             Console.WriteLine();
-            ConsoleHead.Header(new string[] { "PaVe CLI", "Die Paketverwaltung" }, true);
+            ConsoleHead.Header(new string[] { "PaVe [CLI]", "Die Paketverwaltung" }, true);
             Console.WriteLine();
         }
 

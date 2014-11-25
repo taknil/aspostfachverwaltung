@@ -7,125 +7,127 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 using PaVe.DataLayer.IMDB;
 using PaVe.DataLayer.Tables;
 
 namespace PaVe.InterfaceLayer.GUI
 {
-    public partial class MainGUI : Form
-    {
-        public static string AvelibleID
-        {
-            get
-            {
-                return BackendWrapper.GenerateNextPacketID(PaVe.Program.Database.Packet.LastOrDefault());
-            }
-        }
 
-        public MainGUI()
+    
+    partial class MainGui : Form
+    {
+        private readonly string[] tabStrings = { "Paket", "Empfänger", "Postfächer", "Extra"};
+        public MainGui()
         {
             InitializeComponent();
+            setText();
+            tabControl1.DrawItem += new DrawItemEventHandler(tabControl1_DrawItem);
         }
 
-        private void MainGUI_Load(object sender, EventArgs e)
+        private void setText()
         {
-
+            int index = tabControl1.TabCount;
+            for (int i = 0; i < index; i++)
+            {
+                tabControl1.TabPages[i].Text = tabStrings[i];
+            }
+            
         }
 
-        private void MainGUI_Shown(object sender, EventArgs e)
+        private void GUI_Shown(object sender, EventArgs e)
         {
-            IDtext_lb.Text = string.Format("Last ID: {0}", AvelibleID);
-
-            TreeNode[] nodes = RefreshTreeNodes();
-            treeView1.Nodes.AddRange(nodes);
+            refreshListItems();
         }
 
-        private TreeNode[] RefreshTreeNodes()
+        private void refreshListItems()
         {
-            Dictionary<string, TreeNode[]> panelNode = new Dictionary<string, TreeNode[]>();
+            paketListView.Items.Clear();
+            panelListView.Items.Clear();
+            Dictionary<string, ListViewItem[]> panelNode = new Dictionary<string, ListViewItem[]>();
+            
             foreach (Paket packet in PaVe.Program.Database.Packet)
             {
                 if (panelNode.Keys.Contains(packet.Panel.Name))
                     continue;
 
-                TreeNode[] childs = PaVe.Program.Database.Packet
-                    .Where(element => string.Equals(element.Panel.Name, packet.Panel.Name))
-                    .Select(p => new TreeNode(p.ToString()))
-                    .ToArray();
+                ListViewGroup group = new ListViewGroup("Postfach " + packet.Panel.Name);
+                paketListView.Groups.Add(group);
+                panelListView.Items.Add(packet.Panel.Name);
 
+                ListViewItem[] childs = PaVe.Program.Database.Packet
+                    .Where(element => string.Equals(element.Panel.Name, packet.Panel.Name))
+                    .Select(p => new ListViewItem(new string[] 
+                        {
+                            p.ID,
+                            p.PlaceDate.ToString(),
+                            p.PostDate == DateTime.MinValue ? "-----" : p.PostDate.ToString(),
+                            p.Person.Name
+                        },
+                        p.ID, group))
+                    .ToArray();
+                
+                paketListView.Items.AddRange(childs);
                 panelNode.Add(packet.Panel.ToString(), childs);
             }
-
-            return panelNode.Select(n => new TreeNode(n.Key, n.Value))
-                .ToArray();
         }
 
-        private void Seachbar_box_TextChanged(object sender, EventArgs e)
+        private void tabControl1_DrawItem(Object sender, System.Windows.Forms.DrawItemEventArgs e)
         {
-            string lookfor = Seachbar_box.Text;
+            Graphics g = e.Graphics;
+            Brush _textBrush;
 
-            treeView1.Nodes.Clear();
-            if (string.IsNullOrEmpty(lookfor) || string.IsNullOrWhiteSpace(lookfor))
-            {
-                treeView1.Nodes.AddRange(RefreshTreeNodes());
-                return;
-            }
-
-            Dictionary<string, TreeNode[]> panelNode = new Dictionary<string, TreeNode[]>();
-            TreeNode[] nodes = PaVe.Program.Database.Packet.Where(p => 
-                    p.ID.Contains(lookfor) ||
-                    p.Panel.ToString().Contains(lookfor) ||
-                    p.Person.ToString().Contains(lookfor)
-
-                ).Select(p => new TreeNode(p.ToString()))
-                .ToArray();
-
-            treeView1.Nodes.AddRange(nodes);
-        }
-
-        private void AddPanel_btn_Click(object sender, EventArgs e)
-        {
-            InputForm login = new InputForm();
-            login.ShowDialog();
-
-            login.Dispose();
-            if (login.DialogResult == DialogResult.OK)
-                treeView1.Nodes.Add(login.Text);
-
+            // Get the item from the collection.
+            TabPage _tabPage = tabControl1.TabPages[e.Index];
             
 
-            //System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Knoten0");
-            //System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Knoten2");
-            //System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Knoten1", new System.Windows.Forms.TreeNode[] {
-            //treeNode2});
-            //this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            //treeNode1,
-            //treeNode3});
+            // Get the real bounds for the tab rectangle.
+            Rectangle _tabBounds = tabControl1.GetTabRect(e.Index);
+
+            if (e.State == DrawItemState.Selected)
+            {
+
+                // Draw a different background color, and don't paint a focus rectangle.
+                _textBrush = new SolidBrush(Color.White);
+                g.FillRectangle(Brushes.Gray, e.Bounds);
+            }
+            else
+            {
+                _textBrush = new System.Drawing.SolidBrush(e.ForeColor);
+                e.DrawBackground();
+            }
+
+            // Use our own font.
+            Font _tabFont = new Font("Arial", 10.0f, FontStyle.Bold, GraphicsUnit.Pixel);
+
+            // Draw string. Center the text.
+            StringFormat _stringFlags = new StringFormat();
+            _stringFlags.Alignment = StringAlignment.Center;
+            _stringFlags.LineAlignment = StringAlignment.Center;
+            g.DrawString(_tabPage.Text, _tabFont, _textBrush, _tabBounds, new StringFormat(_stringFlags));
         }
 
-        private void DeletePanel_btn_Click(object sender, EventArgs e)
+        private void eincheckenBtn_Click(object sender, EventArgs e)
         {
-            //REMOVE DATABASE ENTRY
-
-            treeView1.SelectedNode.Remove();
+            AddPacketForm addPacketForm = new AddPacketForm();
+            addPacketForm.ShowDialog();
         }
 
-        private void AddPacket_btn_Click(object sender, EventArgs e)
+        private void createPanelBtn_Click(object sender, EventArgs e)
         {
-
-            if (treeView1.SelectedNode == null)
+            if (string.IsNullOrEmpty(panelNameTb.Text))
                 return;
 
-            string id = AvelibleID;
-            string name = Username1_box.Text;
-            string panel = treeView1.SelectedNode.Text;
+            panelListView.Items.Add(panelNameTb.Text);
+        }
 
-            Paket packet = BackendWrapper.CreatePacket(id, name, panel);
-            treeView1.SelectedNode.Nodes.Add(packet.ToString());
-            treeView1.SelectedNode.Expand();
-
-            IDtext_lb.Text = "Last ID: " + packet.ID;
-            Datetext_lb.Text = packet.PlaceDate.ToString();
+        private void loeschePanelBtn_Click(object sender, EventArgs e)
+        {
+            ListViewItem fItem = panelListView.FocusedItem;
+            //Remove from Database
+            BackendWrapper.DeletePanels(fItem.Text);
+            //Remove from ListView
+            panelListView.Items.Remove(fItem);
         }
     }
 }

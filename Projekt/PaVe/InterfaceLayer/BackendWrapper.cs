@@ -12,7 +12,15 @@ namespace PaVe.InterfaceLayer
 {
     static class BackendWrapper
     {
-        public static string GenerateNextPacketID(Paket packet)
+        public static string NextID 
+        { 
+            get 
+            { 
+                return BackendWrapper.GenerateNextPacketID(PaVe.Program.Database.Packet.LastOrDefault()); 
+            } 
+        }
+
+        private static string GenerateNextPacketID(Paket packet)
         {
             UInt64 newid;
             try
@@ -29,7 +37,7 @@ namespace PaVe.InterfaceLayer
 
         public static IEnumerable<Paket> CreatePacket(IEnumerable<Paket> packets)
         {
-            UpdateDatabase(packets);
+            AddToDatabase(packets);
             return packets;
         }
 
@@ -41,32 +49,34 @@ namespace PaVe.InterfaceLayer
                 Person = new DeliverPerson(name),
                 Panel = new PostPanel(panel),
             };
-            UpdateDatabase(packet);
+            AddToDatabase(packet);
             return packet;
         }
 
-        private static void UpdateDatabase(IEnumerable<Paket> packet)
+        public static void DeletePackets(string packetID)
+        {
+            DeleteFromDatabase(p => p.ID == packetID);
+        }
+
+        public static void DeletePanels(string panelName)
+        {
+            DeleteFromDatabase(p => p.Panel.Name == panelName); //Delete Packets=>Panels too
+        }
+
+        #region Database
+        private static void AddToDatabase(IEnumerable<Paket> packet)
         {
             PaVe.Program.Database.Packet.AddRange(packet);
         }
 
-        private static void UpdateDatabase(Paket packet)
+        private static void AddToDatabase(Paket packet)
         {
             PaVe.Program.Database.Packet.Add(packet);
         }
-    }
-
-    static class GUIBackend
-    {
-        public static void AddPanel(PostPanel panel)
+        private static void DeleteFromDatabase(Predicate<Paket> elements)
         {
+            PaVe.Program.Database.Packet.RemoveAll(elements);
         }
-    }
-
-    static class CLIBackend
-    {
-        public static void AddPanel(PostPanel panel)
-        {
-        }
+        #endregion Database
     }
 }
