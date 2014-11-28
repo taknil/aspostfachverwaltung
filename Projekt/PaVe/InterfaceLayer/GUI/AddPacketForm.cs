@@ -36,7 +36,7 @@ namespace PaVe.InterfaceLayer.GUI
         private void addItemsToCombobox()
         {
             Debug.WriteLine("Start add Items");
-            string[] panels = PaVe.Program.Database.Packet
+            string[] panels = PaVe.Program.Database.Pakete
                     .Select(p => p.Panel.Name )
                     .Distinct()
                     .ToArray();

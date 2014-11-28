@@ -12,16 +12,16 @@ namespace PaVe.DataLayer.Tables
     public class DeliverPerson
     {
         [Column]
-        public string Name;
+        public string FullName;
 
         public DeliverPerson(string name)
         {
-            Name = name;
+            FullName = name;
         }
 
         public override string ToString()
         {
-            return string.Format("{0}", Name);
+            return string.Format("{0}", FullName);
         }
     }
 }

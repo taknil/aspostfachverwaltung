@@ -81,7 +81,7 @@ namespace PaVe.InterfaceLayer.CLI
                     input = string.Empty;
                     break;
                 default:
-                    if (PaVe.Program.Database.Packet.Any(p => string.Equals(p.ID, tmp)))
+                    if (PaVe.Program.Database.Pakete.Any(p => string.Equals(p.ID, tmp)))
                         Load(current, tmp);
                     break;
 
@@ -216,7 +216,7 @@ namespace PaVe.InterfaceLayer.CLI
 
         private IEnumerable<PaVe.DataLayer.Tables.Paket> CreateList(string filter)
         {
-            return PaVe.Program.Database.Packet
+            return PaVe.Program.Database.Pakete
                 .Where(p =>
                     string.IsNullOrEmpty(filter) ||
                     p.ID.Contains(filter) ||

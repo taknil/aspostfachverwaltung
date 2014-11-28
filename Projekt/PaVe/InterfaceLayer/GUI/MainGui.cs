@@ -46,7 +46,7 @@ namespace PaVe.InterfaceLayer.GUI
             panelListView.Items.Clear();
             Dictionary<string, ListViewItem[]> panelNode = new Dictionary<string, ListViewItem[]>();
             
-            foreach (Paket packet in PaVe.Program.Database.Packet)
+            foreach (Paket packet in PaVe.Program.Database.Pakete)
             {
                 if (panelNode.Keys.Contains(packet.Panel.Name))
                     continue;
@@ -55,14 +55,14 @@ namespace PaVe.InterfaceLayer.GUI
                 paketListView.Groups.Add(group);
                 panelListView.Items.Add(packet.Panel.Name);
 
-                ListViewItem[] childs = PaVe.Program.Database.Packet
+                ListViewItem[] childs = PaVe.Program.Database.Pakete
                     .Where(element => string.Equals(element.Panel.Name, packet.Panel.Name))
                     .Select(p => new ListViewItem(new string[] 
                         {
                             p.ID,
                             p.PlaceDate.ToString(),
                             p.PostDate == DateTime.MinValue ? "-----" : p.PostDate.ToString(),
-                            p.Person.Name
+                            p.Person.FullName
                         },
                         p.ID, group))
                     .ToArray();

@@ -16,15 +16,15 @@ namespace PaVe.DataLayer.IMDB
     [Database]
     sealed class InMeDatabase
     {
-        public bool UseSQL = false;
+        public static bool UseSQL = false;
 
         public const string DatabaseFile = @"DataLayer\IMDB\Database.xml";
         private static readonly DataContractSerializer _Serializer;
 
         public static InMeDatabase Current { get; private set; }
-        public List<DeliverPerson> User = new List<DeliverPerson>();
-        public List<Paket> Packet = new List<Paket>();
-        public List<Log> Log = new List<Log>();
+        public HashSet<DeliverPerson> Personen = new HashSet<DeliverPerson>();
+        public HashSet<PostPanel> Postfaecher = new HashSet<PostPanel>();
+        public List<Paket> Pakete = new List<Paket>();
 
         static InMeDatabase()
         {
