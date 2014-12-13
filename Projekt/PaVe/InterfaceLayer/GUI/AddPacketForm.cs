@@ -46,7 +46,7 @@ namespace PaVe.InterfaceLayer.GUI
 
         private void packetEinbuchenBtn_Click(object sender, EventArgs e)
         {
-            string id = BackendWrapper.NextID;
+            long id = BackendWrapper.NextID;
             string name = empfaengerTb.Text;
             string panel = postfachCb.SelectedItem.ToString();
 

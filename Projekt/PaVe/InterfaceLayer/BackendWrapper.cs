@@ -12,7 +12,7 @@ namespace PaVe.InterfaceLayer
 {
     static class BackendWrapper
     {
-        public static string NextID 
+        public static long NextID 
         { 
             get 
             { 
@@ -20,19 +20,9 @@ namespace PaVe.InterfaceLayer
             } 
         }
 
-        private static string GenerateNextPacketID(Paket packet)
+        private static long GenerateNextPacketID(Paket packet)
         {
-            UInt64 newid;
-            try
-            {
-                UInt64 id = UInt64.Parse(packet.ID);
-                newid = id + 1;
-            }
-            catch
-            {
-                newid = 1;
-            }
-            return newid.ToString();
+            return packet.Id + 1;
         }
 
         public static IEnumerable<Paket> CreatePacket(IEnumerable<Paket> packets)
@@ -41,33 +31,33 @@ namespace PaVe.InterfaceLayer
             return packets;
         }
 
-        public static Paket CreatePacket(string id, string name, string panel)
+        public static Paket CreatePacket(long id, string name, string panel)
         {
             Paket packet= new Paket() 
             {
-                ID = id,
-                Person = new DeliverPerson(name),
-                Panel = new PostPanel(panel),
+                Id = id,
+                Person = new Person(name),
+                Panel = new Panel(panel),
             };
             AddToDatabase(packet);
             return packet;
         }
 
-        public static DeliverPerson CreatePerson(string name)
+        public static Person CreatePerson(string name)
         {
-            DeliverPerson person = new DeliverPerson(name);
+            Person person = new Person(name);
             AddToDatabase(person);
             return person;
         }
-        public static PostPanel CreatePostfach(string name)
+        public static Panel CreatePostfach(string name)
         {
-            PostPanel postfach = new PostPanel(name);
+            Panel postfach = new Panel(name);
             AddToDatabase(postfach);
             return postfach;
         }
-        public static void DeletePackets(string packetID)
+        public static void DeletePackets(long packetID)
         {
-            DeleteFromDatabase(p => p.ID == packetID);
+            DeleteFromDatabase(p => p.Id == packetID && p.Panel != null);
         }
 
         public static void DeletePerson(string personName)
@@ -89,12 +79,12 @@ namespace PaVe.InterfaceLayer
             PaVe.Program.Database.Pakete.AddRange(packet);
         }
 
-        private static void AddToDatabase(DeliverPerson person)
+        private static void AddToDatabase(Person person)
         {
             PaVe.Program.Database.Personen.Add(person);
         }
 
-        private static void AddToDatabase(PostPanel postfach)
+        private static void AddToDatabase(Panel postfach)
         {
             PaVe.Program.Database.Postfaecher.Add(postfach);
         }
@@ -106,12 +96,12 @@ namespace PaVe.InterfaceLayer
             PaVe.Program.Database.Pakete.Add(packet);
         }
 
-        private static void DeleteFromDatabase(Predicate<DeliverPerson> elements)
+        private static void DeleteFromDatabase(Predicate<Person> elements)
         {
             PaVe.Program.Database.Personen.RemoveWhere(elements);
         }
 
-        private static void DeleteFromDatabase(Predicate<PostPanel> elements)
+        private static void DeleteFromDatabase(Predicate<Panel> elements)
         {
             PaVe.Program.Database.Postfaecher.RemoveWhere(elements);
         }

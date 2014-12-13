@@ -8,17 +8,22 @@ using System.Threading.Tasks;
 namespace PaVe.DataLayer.Tables
 {
     [Serializable]
-    [Table(Name = "PostPanel")]
-    public class PostPanel
+    [Table(Name = "dbo.Panel")]
+    public class Panel
     {
-        [Column(IsPrimaryKey=true)]
+        [Column(Name = "Id", IsPrimaryKey = true, DbType = "BigInt NOT NULL")]
+        public long Id;
+        [Column(Name = "Name", DbType = "NVarChar(MAX)")]
         public string Name;
-        [Column]
+        [Column(Name = "IsEmpty", DbType = "bit")]
         public bool IsEmpty;
 
-        public PostPanel(string name)
+        public Panel() { }
+
+        public Panel(string name)
         {
             Name = name;
+            Id = DateTime.Now.Ticks;
         }
 
         public override string ToString()

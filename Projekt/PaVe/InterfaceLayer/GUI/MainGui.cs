@@ -59,12 +59,12 @@ namespace PaVe.InterfaceLayer.GUI
                     .Where(element => string.Equals(element.Panel.Name, packet.Panel.Name))
                     .Select(p => new ListViewItem(new string[] 
                         {
-                            p.ID,
+                            p.Id.ToString(),
                             p.PlaceDate.ToString(),
-                            p.PostDate == DateTime.MinValue ? "-----" : p.PostDate.ToString(),
+                            p.PostDate == DateTime.MaxValue ? "-----" : p.PostDate.ToString(),
                             p.Person.FullName
                         },
-                        p.ID, group))
+                        p.Id.ToString(), group))
                     .ToArray();
                 
                 paketListView.Items.AddRange(childs);

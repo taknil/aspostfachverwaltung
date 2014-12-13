@@ -8,16 +8,21 @@ using System.Threading.Tasks;
 namespace PaVe.DataLayer.Tables
 {
     [Serializable]
-    [Table(Name = "Person")]
-    public class DeliverPerson
+    [Table(Name = "dbo.Person")]
+    public class Person
     {
-        [Column]
+        [Column(Name = "Id", IsPrimaryKey = true, DbType = "BigInt NOT NULL")]
+        public long Id;
+        [Column(Name = "FullName", DbType = "NVarChar(MAX)")]
         public string FullName;
 
-        public DeliverPerson(string name)
+        public Person(string name)
         {
             FullName = name;
+            Id = DateTime.Now.Ticks;
         }
+
+        public Person() { }
 
         public override string ToString()
         {

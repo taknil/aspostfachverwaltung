@@ -1,0 +1,15 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="PaVe.DataLayer" GeneratedClassName="DataSettings">
+  <Profiles />
+  <Settings>
+    <Setting Name="MdfFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">DataLayer\SQL\Database.mdf</Value>
+    </Setting>
+    <Setting Name="Connection" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Data Source=(LocalDB)\v11.0;AttachDbFilename={0};Database=PaVe;Integrated Security=True;Connect Timeout=30;</Value>
+    </Setting>
+    <Setting Name="CustomSqlConnection" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+  </Settings>
+</SettingsFile>

@@ -81,7 +81,7 @@ namespace PaVe.InterfaceLayer.CLI
                     input = string.Empty;
                     break;
                 default:
-                    if (PaVe.Program.Database.Pakete.Any(p => string.Equals(p.ID, tmp)))
+                    if (PaVe.Program.Database.Pakete.Any(p => string.Equals(p.Id, tmp)))
                         Load(current, tmp);
                     break;
 
@@ -179,7 +179,7 @@ namespace PaVe.InterfaceLayer.CLI
                     Index.Remove(pointer);
 
                 Index.Add(Page.PacketList, CreateList(input)
-                    .Select(p => string.Format("\tPacket ID {0}\r\n\t\tPostfach: {1}\r\n\t\tPerson: {2}", p.ID, p.Panel, p.Person))
+                    .Select(p => string.Format("\tPacket ID {0}\r\n\t\tPostfach: {1}\r\n\t\tPerson: {2}", p.Id, p.Panel, p.Person))
                     .ToArray());
             }
 
@@ -219,8 +219,7 @@ namespace PaVe.InterfaceLayer.CLI
             return PaVe.Program.Database.Pakete
                 .Where(p =>
                     string.IsNullOrEmpty(filter) ||
-                    p.ID.Contains(filter) ||
-                    p.ID.Contains(filter) ||
+                    p.Id.ToString().Contains(filter) ||
                     p.Panel.ToString().Contains(filter) ||
                     p.Person.ToString().Contains(filter));
         }

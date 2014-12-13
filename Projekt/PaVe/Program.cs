@@ -37,7 +37,7 @@ namespace PaVe
             }
             catch
             {
-                MessageBox.Show("Fehlerhafte Datenbank", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Fehlerhafte Datenbank", "Error" , MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -73,12 +73,17 @@ namespace PaVe
 
             InMeDatabase.RefreshCurrent();
 
-            BackendWrapper.CreatePacket("0", "CurrentUser", "A1");
-            BackendWrapper.CreatePacket("1", "CurrentUser", "A1");
-            BackendWrapper.CreatePacket("2", "CurrentUser", "A2");
-            BackendWrapper.CreatePacket("3", "CurrentUser", "A3");
-            BackendWrapper.CreatePacket("4", "CurrentUser", "B1");
-            BackendWrapper.CreatePacket("5", "CurrentUser", "C1");
+            BackendWrapper.CreatePacket(0, "CurrentUser", "A1");
+            System.Threading.Thread.Sleep(1000);
+            BackendWrapper.CreatePacket(1, "CurrentUser", "A1");
+            System.Threading.Thread.Sleep(1000);
+            BackendWrapper.CreatePacket(2, "CurrentUser", "A2");
+            System.Threading.Thread.Sleep(1000);
+            BackendWrapper.CreatePacket(3, "CurrentUser", "A3");
+            System.Threading.Thread.Sleep(1000);
+            BackendWrapper.CreatePacket(4, "CurrentUser", "B1");
+            System.Threading.Thread.Sleep(1000);
+            BackendWrapper.CreatePacket(5, "CurrentUser", "C1");
 
             Database.Save();
         }

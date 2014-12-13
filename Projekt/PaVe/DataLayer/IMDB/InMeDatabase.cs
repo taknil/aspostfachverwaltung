@@ -16,20 +16,20 @@ namespace PaVe.DataLayer.IMDB
     [Database]
     sealed class InMeDatabase
     {
-        public static bool UseSQL = false;
+        public static bool UseSQL = true;
 
         public const string DatabaseFile = @"DataLayer\IMDB\Database.xml";
         private static readonly DataContractSerializer _Serializer;
 
         public static InMeDatabase Current { get; private set; }
-        public HashSet<DeliverPerson> Personen = new HashSet<DeliverPerson>();
-        public HashSet<PostPanel> Postfaecher = new HashSet<PostPanel>();
+        public HashSet<Person> Personen = new HashSet<Person>();
+        public HashSet<Panel> Postfaecher = new HashSet<Panel>();
         public List<Paket> Pakete = new List<Paket>();
 
         static InMeDatabase()
         {
             _Serializer = new DataContractSerializer(typeof(InMeDatabase));
-            RefreshCurrent();
+            //RefreshCurrent();
         }
         private InMeDatabase() { }
 
@@ -38,13 +38,30 @@ namespace PaVe.DataLayer.IMDB
             Timer _Timer = new Timer((s) => { Current.Save(); }, null, 0, 15000);
         }
 
-        public static void SaveCurrent(string file)
+        public static void RefreshCurrent()
+        {
+            if (UseSQL)
+                LoadSQL();
+            else
+                LoadIMDB();
+        }
+
+        public void Save()
+        {
+            if (UseSQL)
+                CommitToSql(DataSettings.Default.CustomSqlConnection);
+            else
+                CommitToIMDB(DatabaseFile);
+        }
+
+        #region Imdb
+        private static void CommitToIMDB(string file)
         {
             using (FileStream fs = new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.None))
                 _Serializer.WriteObject(fs, Current);
         }
 
-        public static void RefreshCurrent()
+        private static void LoadIMDB()
         {
             try
             {
@@ -54,30 +71,55 @@ namespace PaVe.DataLayer.IMDB
             {
                 Current = new InMeDatabase();
             }
-            catch(DirectoryNotFoundException)
+            catch (DirectoryNotFoundException)
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(DatabaseFile));
             }
         }
 
-        public static InMeDatabase ReadCurrent(string file)
+        private static InMeDatabase ReadCurrent(string file)
         {
             using (FileStream fs = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                 return (InMeDatabase)_Serializer.ReadObject(fs);
         }
+        #endregion Imdb
 
-        public void Save()
+        #region Sql
+        private static void LoadSQL()
         {
-            if(UseSQL)
+            try
+            { // ------------------
+                SQL.Helper sql = new SQL.Helper(null);
+                Current = new InMeDatabase();
+                Current.Pakete = sql.GetTable<Paket>().ToList();
+                Current.Personen = new HashSet<Person>(sql.GetTable<Person>());
+                Current.Postfaecher = new HashSet<Panel>(sql.GetTable<Panel>());
+            }
+            catch (System.Data.SqlClient.SqlException e)
             {
-                SQL.Helper sql = new SQL.Helper(SQL.Helper.DatabaseFile);
-                sql.SubmitChanges();
+#if DEBUG
+                System.Windows.Forms.MessageBox.Show("Fallback zu nicht relationale Datenbank\r\n " + e, "Fehlerhafte Datenbank", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+#endif
+                UseSQL = false;
+            }
+        }
+        private static void CommitToSql(string connectionString)
+        {
+            SQL.Helper sql = new SQL.Helper(connectionString);
+            if (sql.DatabaseExists())
+            {
+                sql.UpdateAll<Paket>(IMDB.InMeDatabase.Current.Pakete.DistinctBy(p => p.Id));
+                sql.UpdateAll<Person>(IMDB.InMeDatabase.Current.Personen.DistinctBy(p => p.Id));
+                sql.UpdateAll<Panel>(IMDB.InMeDatabase.Current.Postfaecher.DistinctBy(p => p.Id));
             }
             else
             {
-                Console.WriteLine("Trying to Save at {0}", DateTime.Now);
-                SaveCurrent(DatabaseFile);
+                sql.AddAll<Paket>(IMDB.InMeDatabase.Current.Pakete.DistinctBy(p => p.Id));
+                sql.AddAll<Person>(IMDB.InMeDatabase.Current.Personen.DistinctBy(p => p.Id));
+                sql.AddAll<Panel>(IMDB.InMeDatabase.Current.Postfaecher.DistinctBy(p => p.Id));
             }
+            sql.Save();
         }
+        #endregion Sql
     }
 }
