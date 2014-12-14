@@ -17,7 +17,7 @@ namespace PaVe.InterfaceLayer.GUI
     
     partial class MainGui : Form
     {
-        private readonly string[] tabStrings = { "Paket", "Empfänger", "Postfächer", "Extra"};
+        private readonly string[] tabStrings = { "Paket", "Nutzer", "Postfächer", "Extra"};
         public MainGui()
         {
             InitializeComponent();
@@ -118,7 +118,9 @@ namespace PaVe.InterfaceLayer.GUI
             if (string.IsNullOrEmpty(panelNameTb.Text))
                 return;
 
+            BackendWrapper.CreatePostfach(panelNameTb.Text);
             panelListView.Items.Add(panelNameTb.Text);
+            
         }
 
         private void loeschePanelBtn_Click(object sender, EventArgs e)
@@ -129,5 +131,24 @@ namespace PaVe.InterfaceLayer.GUI
             //Remove from ListView
             panelListView.Items.Remove(fItem);
         }
+
+        private void addNutzerBtn_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(tbNutzerName.Text))
+                return;
+
+            BackendWrapper.CreatePostfach(tbNutzerName.Text);
+            panelListView.Items.Add(tbNutzerName.Text);
+        }
+
+        private void deleteNutzerBtn_Click(object sender, EventArgs e)
+        {
+            ListViewItem fItem = nutzerListView.FocusedItem;
+            //Remove from Database
+            BackendWrapper.DeletePanels(fItem.Text);
+            //Remove from ListView
+            nutzerListView.Items.Remove(fItem);
+        }
+
     }
 }

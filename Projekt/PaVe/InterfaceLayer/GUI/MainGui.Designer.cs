@@ -41,6 +41,12 @@
             this.Abholdatum = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Empfänger = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.deleteNutzerBtn = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.addNutzerBtn = new System.Windows.Forms.Button();
+            this.tbNutzerName = new System.Windows.Forms.TextBox();
+            this.nutzerListView = new System.Windows.Forms.ListView();
+            this.Nutzer = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.createPanelBtn = new System.Windows.Forms.Button();
@@ -51,6 +57,8 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -161,6 +169,9 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.deleteNutzerBtn);
+            this.tabPage2.Controls.Add(this.groupBox2);
+            this.tabPage2.Controls.Add(this.nutzerListView);
             this.tabPage2.Location = new System.Drawing.Point(154, 4);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -168,6 +179,60 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // deleteNutzerBtn
+            // 
+            this.deleteNutzerBtn.Location = new System.Drawing.Point(285, 192);
+            this.deleteNutzerBtn.Name = "deleteNutzerBtn";
+            this.deleteNutzerBtn.Size = new System.Drawing.Size(162, 36);
+            this.deleteNutzerBtn.TabIndex = 2;
+            this.deleteNutzerBtn.Text = "Nutzer löschen";
+            this.deleteNutzerBtn.UseVisualStyleBackColor = true;
+            this.deleteNutzerBtn.Click += new System.EventHandler(this.deleteNutzerBtn_Click);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.addNutzerBtn);
+            this.groupBox2.Controls.Add(this.tbNutzerName);
+            this.groupBox2.Location = new System.Drawing.Point(279, 6);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(175, 117);
+            this.groupBox2.TabIndex = 1;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Nutzer anlegen";
+            // 
+            // addNutzerBtn
+            // 
+            this.addNutzerBtn.Location = new System.Drawing.Point(6, 58);
+            this.addNutzerBtn.Name = "addNutzerBtn";
+            this.addNutzerBtn.Size = new System.Drawing.Size(162, 36);
+            this.addNutzerBtn.TabIndex = 1;
+            this.addNutzerBtn.Text = "Hinzufügen";
+            this.addNutzerBtn.UseVisualStyleBackColor = true;
+            this.addNutzerBtn.Click += new System.EventHandler(this.addNutzerBtn_Click);
+            // 
+            // tbNutzerName
+            // 
+            this.tbNutzerName.Location = new System.Drawing.Point(6, 32);
+            this.tbNutzerName.Name = "tbNutzerName";
+            this.tbNutzerName.Size = new System.Drawing.Size(162, 20);
+            this.tbNutzerName.TabIndex = 0;
+            // 
+            // nutzerListView
+            // 
+            this.nutzerListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.Nutzer});
+            this.nutzerListView.Location = new System.Drawing.Point(6, 6);
+            this.nutzerListView.Name = "nutzerListView";
+            this.nutzerListView.Size = new System.Drawing.Size(273, 310);
+            this.nutzerListView.TabIndex = 0;
+            this.nutzerListView.UseCompatibleStateImageBehavior = false;
+            this.nutzerListView.View = System.Windows.Forms.View.Details;
+            // 
+            // Nutzer
+            // 
+            this.Nutzer.Text = "Nutzer";
+            this.Nutzer.Width = 270;
             // 
             // tabPage3
             // 
@@ -234,7 +299,7 @@
             // columnHeader1
             // 
             this.columnHeader1.Text = "Postfächer";
-            this.columnHeader1.Width = 262;
+            this.columnHeader1.Width = 270;
             // 
             // tabPage4
             // 
@@ -260,6 +325,9 @@
             this.Shown += new System.EventHandler(this.GUI_Shown);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -289,6 +357,12 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox panelNameTb;
         private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.Button deleteNutzerBtn;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button addNutzerBtn;
+        private System.Windows.Forms.TextBox tbNutzerName;
+        private System.Windows.Forms.ListView nutzerListView;
+        private System.Windows.Forms.ColumnHeader Nutzer;
 
         
             
