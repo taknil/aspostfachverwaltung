@@ -18,12 +18,15 @@ namespace PaVe.InterfaceLayer.GUI
     public partial class AddPacketForm : Form
     {
         private const string DefaultPostfachCbText = "-WÄHLE POSTFACH-";
+        private const string DefaultEmpfaengerCbText = "-WÄHLE EMPFÄNGER-";
 
         public AddPacketForm()
         {
             InitializeComponent();
             postfachCb.Items.Insert(0, DefaultPostfachCbText);
             postfachCb.SelectedIndex = 0;
+            cbEmpfaenger.Items.Insert(0, DefaultEmpfaengerCbText);
+            cbEmpfaenger.SelectedIndex = 0;
         }
 
         private void AddPacketForm_Shown(object sender, EventArgs e)
@@ -42,12 +45,19 @@ namespace PaVe.InterfaceLayer.GUI
                     .ToArray();
             Debug.WriteLine(panels.Length);
             postfachCb.Items.AddRange(panels);
+
+            string[] empfaenger = PaVe.Program.Database.Personen
+                    .Select(p => p.FullName)
+                    .Distinct()
+                    .ToArray();
+            Debug.WriteLine(empfaenger.Length);
+            cbEmpfaenger.Items.AddRange(empfaenger);
         }
 
         private void packetEinbuchenBtn_Click(object sender, EventArgs e)
         {
             long id = BackendWrapper.NextID;
-            string name = empfaengerTb.Text;
+            string name = cbEmpfaenger.SelectedItem.ToString();
             string panel = postfachCb.SelectedItem.ToString();
 
             if(string.Equals(panel, DefaultPostfachCbText) == false)

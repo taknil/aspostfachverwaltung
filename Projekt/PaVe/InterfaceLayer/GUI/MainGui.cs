@@ -17,7 +17,7 @@ namespace PaVe.InterfaceLayer.GUI
     
     partial class MainGui : Form
     {
-        private readonly string[] tabStrings = { "Paket", "Nutzer", "Postfächer", "Extra"};
+        private readonly string[] tabStrings = { "Paket", "Nutzer", "Postfächer", "Einstellungen"};
         public MainGui()
         {
             InitializeComponent();
@@ -37,11 +37,25 @@ namespace PaVe.InterfaceLayer.GUI
 
         private void GUI_Shown(object sender, EventArgs e)
         {
-            refreshListItems();
+            refreshPaketListItems();
+            refreshNameList();
         }
 
-        private void refreshListItems()
+        private void refreshNameList()
         {
+            Console.WriteLine("refresh nameList ");
+            nutzerListView.Items.Clear();
+            foreach (Person person in PaVe.Program.Database.Personen)
+            {
+                Console.WriteLine(person.FullName);
+                nutzerListView.Items.Add(person.FullName);
+
+            }
+        }
+
+        private void refreshPaketListItems()
+        {
+            Console.WriteLine("refresh pakets");
             paketListView.Items.Clear();
             panelListView.Items.Clear();
             Dictionary<string, ListViewItem[]> panelNode = new Dictionary<string, ListViewItem[]>();
@@ -61,7 +75,6 @@ namespace PaVe.InterfaceLayer.GUI
                         {
                             p.Id.ToString(),
                             p.PlaceDate.ToString(),
-                            p.PostDate == DateTime.MaxValue ? "-----" : p.PostDate.ToString(),
                             p.Person.FullName
                         },
                         p.Id.ToString(), group))
@@ -72,6 +85,7 @@ namespace PaVe.InterfaceLayer.GUI
             }
         }
 
+        
         private void tabControl1_DrawItem(Object sender, System.Windows.Forms.DrawItemEventArgs e)
         {
             Graphics g = e.Graphics;
@@ -138,7 +152,7 @@ namespace PaVe.InterfaceLayer.GUI
                 return;
 
             BackendWrapper.CreatePostfach(tbNutzerName.Text);
-            panelListView.Items.Add(tbNutzerName.Text);
+            nutzerListView.Items.Add(tbNutzerName.Text);
         }
 
         private void deleteNutzerBtn_Click(object sender, EventArgs e)
@@ -149,6 +163,17 @@ namespace PaVe.InterfaceLayer.GUI
             //Remove from ListView
             nutzerListView.Items.Remove(fItem);
         }
+
+        private void groupBox3_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ausbuchenBtn_Click(object sender, EventArgs e)
+        {
+        
+        }
+
 
     }
 }

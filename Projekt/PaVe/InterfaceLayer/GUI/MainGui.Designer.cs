@@ -32,13 +32,11 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.eincheckenBtn = new System.Windows.Forms.Button();
-            this.vernichtenBtn = new System.Windows.Forms.Button();
             this.umlagernBtn = new System.Windows.Forms.Button();
             this.ausbuchenBtn = new System.Windows.Forms.Button();
             this.paketListView = new System.Windows.Forms.ListView();
             this.PaketID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Aufgabedatum = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.Abholdatum = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Empfänger = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.deleteNutzerBtn = new System.Windows.Forms.Button();
@@ -54,13 +52,22 @@
             this.loeschePanelBtn = new System.Windows.Forms.Button();
             this.panelListView = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.radioButton4 = new System.Windows.Forms.RadioButton();
+            this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.tabPage5.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -69,7 +76,7 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
             this.tabControl1.ItemSize = new System.Drawing.Size(25, 150);
             this.tabControl1.Location = new System.Drawing.Point(29, 51);
@@ -84,7 +91,6 @@
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.eincheckenBtn);
-            this.tabPage1.Controls.Add(this.vernichtenBtn);
             this.tabPage1.Controls.Add(this.umlagernBtn);
             this.tabPage1.Controls.Add(this.ausbuchenBtn);
             this.tabPage1.Controls.Add(this.paketListView);
@@ -106,15 +112,6 @@
             this.eincheckenBtn.UseVisualStyleBackColor = true;
             this.eincheckenBtn.Click += new System.EventHandler(this.eincheckenBtn_Click);
             // 
-            // vernichtenBtn
-            // 
-            this.vernichtenBtn.Location = new System.Drawing.Point(217, 6);
-            this.vernichtenBtn.Name = "vernichtenBtn";
-            this.vernichtenBtn.Size = new System.Drawing.Size(93, 32);
-            this.vernichtenBtn.TabIndex = 3;
-            this.vernichtenBtn.Text = "Vernichten";
-            this.vernichtenBtn.UseVisualStyleBackColor = true;
-            // 
             // umlagernBtn
             // 
             this.umlagernBtn.Location = new System.Drawing.Point(118, 6);
@@ -132,13 +129,13 @@
             this.ausbuchenBtn.TabIndex = 1;
             this.ausbuchenBtn.Text = "Ausbuchen";
             this.ausbuchenBtn.UseVisualStyleBackColor = true;
+            this.ausbuchenBtn.Click += new System.EventHandler(this.ausbuchenBtn_Click);
             // 
             // paketListView
             // 
             this.paketListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.PaketID,
             this.Aufgabedatum,
-            this.Abholdatum,
             this.Empfänger});
             this.paketListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.paketListView.Location = new System.Drawing.Point(0, 57);
@@ -151,21 +148,17 @@
             // PaketID
             // 
             this.PaketID.Text = "PaketID";
+            this.PaketID.Width = 103;
             // 
             // Aufgabedatum
             // 
             this.Aufgabedatum.Text = "Aufgabedatum";
-            this.Aufgabedatum.Width = 120;
-            // 
-            // Abholdatum
-            // 
-            this.Abholdatum.Text = "Abholdatum";
-            this.Abholdatum.Width = 120;
+            this.Aufgabedatum.Width = 185;
             // 
             // Empfänger
             // 
             this.Empfänger.Text = "Empfänger";
-            this.Empfänger.Width = 120;
+            this.Empfänger.Width = 172;
             // 
             // tabPage2
             // 
@@ -222,9 +215,9 @@
             // 
             this.nutzerListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.Nutzer});
-            this.nutzerListView.Location = new System.Drawing.Point(6, 6);
+            this.nutzerListView.Location = new System.Drawing.Point(0, 0);
             this.nutzerListView.Name = "nutzerListView";
-            this.nutzerListView.Size = new System.Drawing.Size(273, 310);
+            this.nutzerListView.Size = new System.Drawing.Size(273, 300);
             this.nutzerListView.TabIndex = 0;
             this.nutzerListView.UseCompatibleStateImageBehavior = false;
             this.nutzerListView.View = System.Windows.Forms.View.Details;
@@ -232,7 +225,7 @@
             // Nutzer
             // 
             this.Nutzer.Text = "Nutzer";
-            this.Nutzer.Width = 270;
+            this.Nutzer.Width = 265;
             // 
             // tabPage3
             // 
@@ -299,18 +292,86 @@
             // columnHeader1
             // 
             this.columnHeader1.Text = "Postfächer";
-            this.columnHeader1.Width = 270;
+            this.columnHeader1.Width = 265;
             // 
-            // tabPage4
+            // tabPage5
             // 
-            this.tabPage4.Location = new System.Drawing.Point(154, 4);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.tabPage4.Size = new System.Drawing.Size(461, 306);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "tabPage4";
-            this.tabPage4.UseVisualStyleBackColor = true;
+            this.tabPage5.Controls.Add(this.groupBox4);
+            this.tabPage5.Controls.Add(this.groupBox3);
+            this.tabPage5.Location = new System.Drawing.Point(154, 4);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(461, 306);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "tabPage5";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.radioButton4);
+            this.groupBox4.Controls.Add(this.radioButton3);
+            this.groupBox4.Location = new System.Drawing.Point(35, 167);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(200, 100);
+            this.groupBox4.TabIndex = 1;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Anzeigeoptionen";
+            // 
+            // radioButton4
+            // 
+            this.radioButton4.AutoSize = true;
+            this.radioButton4.Location = new System.Drawing.Point(12, 52);
+            this.radioButton4.Name = "radioButton4";
+            this.radioButton4.Size = new System.Drawing.Size(41, 17);
+            this.radioButton4.TabIndex = 1;
+            this.radioButton4.TabStop = true;
+            this.radioButton4.Text = "CLI";
+            this.radioButton4.UseVisualStyleBackColor = true;
+            // 
+            // radioButton3
+            // 
+            this.radioButton3.AutoSize = true;
+            this.radioButton3.Location = new System.Drawing.Point(12, 28);
+            this.radioButton3.Name = "radioButton3";
+            this.radioButton3.Size = new System.Drawing.Size(44, 17);
+            this.radioButton3.TabIndex = 0;
+            this.radioButton3.TabStop = true;
+            this.radioButton3.Text = "GUI";
+            this.radioButton3.UseVisualStyleBackColor = true;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.radioButton2);
+            this.groupBox3.Controls.Add(this.radioButton1);
+            this.groupBox3.Location = new System.Drawing.Point(35, 33);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(200, 100);
+            this.groupBox3.TabIndex = 0;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Daten laden aus";
+            this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(13, 53);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(46, 17);
+            this.radioButton2.TabIndex = 1;
+            this.radioButton2.TabStop = true;
+            this.radioButton2.Text = "SQL";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(12, 29);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(47, 17);
+            this.radioButton1.TabIndex = 0;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "XML";
+            this.radioButton1.UseVisualStyleBackColor = true;
             // 
             // MainGui
             // 
@@ -331,6 +392,11 @@
             this.tabPage3.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.tabPage5.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -341,14 +407,11 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.ListView paketListView;
         private System.Windows.Forms.ColumnHeader PaketID;
         private System.Windows.Forms.ColumnHeader Aufgabedatum;
-        private System.Windows.Forms.ColumnHeader Abholdatum;
         private System.Windows.Forms.ColumnHeader Empfänger;
         private System.Windows.Forms.Button eincheckenBtn;
-        private System.Windows.Forms.Button vernichtenBtn;
         private System.Windows.Forms.Button umlagernBtn;
         private System.Windows.Forms.Button ausbuchenBtn;
         private System.Windows.Forms.Button loeschePanelBtn;
@@ -363,6 +426,13 @@
         private System.Windows.Forms.TextBox tbNutzerName;
         private System.Windows.Forms.ListView nutzerListView;
         private System.Windows.Forms.ColumnHeader Nutzer;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.RadioButton radioButton4;
+        private System.Windows.Forms.RadioButton radioButton3;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton radioButton1;
 
         
             
