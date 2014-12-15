@@ -1,0 +1,6 @@
+*.cache
+Projekt/PaVe/obj/Debug/*
+Projekt/PaVe/bin/Debug/*
+Projekt/PaVe/bin/Debug/DataLayer/IMDB/Database.xml
+Projekt/PaVe/bin/Debug/DataLayer/SQL/Database.mdf
+Projekt/PaVe12.v12.suo
