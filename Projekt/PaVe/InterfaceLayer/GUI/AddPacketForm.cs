@@ -56,12 +56,11 @@ namespace PaVe.InterfaceLayer.GUI
 
         private void packetEinbuchenBtn_Click(object sender, EventArgs e)
         {
-            long id = BackendWrapper.NextID;
             string name = cbEmpfaenger.SelectedItem.ToString();
             string panel = postfachCb.SelectedItem.ToString();
 
             if(string.Equals(panel, DefaultPostfachCbText) == false)
-                BackendWrapper.CreatePacket(id, name, panel);
+                BackendWrapper.CreatePacket(name, panel);
 
             this.Close();
         }

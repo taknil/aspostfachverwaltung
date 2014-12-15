@@ -16,9 +16,9 @@ namespace PaVe.DataLayer.IMDB
     [Database]
     sealed class InMeDatabase
     {
-        public static bool UseSQL = true;
+        public static bool UseSQL = DataSettings.Default.UseSql;
+        public static string DatabaseFile = DataSettings.Default.XmlFile;
 
-        public const string DatabaseFile = @"DataLayer\IMDB\Database.xml";
         private static readonly DataContractSerializer _Serializer;
 
         public static InMeDatabase Current { get; private set; }
@@ -88,8 +88,8 @@ namespace PaVe.DataLayer.IMDB
         private static void LoadSQL()
         {
             try
-            { // ------------------
-                SQL.Helper sql = new SQL.Helper(null);
+            {
+                SQL.Helper sql = new SQL.Helper(DataSettings.Default.CustomSqlConnection);
                 Current = new InMeDatabase();
                 Current.Pakete = sql.GetTable<Paket>().ToList();
                 Current.Personen = new HashSet<Person>(sql.GetTable<Person>());
@@ -101,6 +101,7 @@ namespace PaVe.DataLayer.IMDB
                 System.Windows.Forms.MessageBox.Show("Fallback zu nicht relationale Datenbank\r\n " + e, "Fehlerhafte Datenbank", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
 #endif
                 UseSQL = false;
+                RefreshCurrent();
             }
         }
         private static void CommitToSql(string connectionString)

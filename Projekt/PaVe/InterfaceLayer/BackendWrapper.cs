@@ -7,38 +7,31 @@ using System.Threading.Tasks;
 using PaVe.InterfaceLayer.GUI;
 using PaVe.InterfaceLayer.CLI;
 using PaVe.DataLayer.Tables;
+using PaVe.Utils;
+
 
 namespace PaVe.InterfaceLayer
 {
     static class BackendWrapper
     {
-        public static long NextID 
-        { 
-            get 
-            { 
-                return BackendWrapper.GenerateNextPacketID(PaVe.Program.Database.Pakete.LastOrDefault()); 
-            } 
-        }
-
-        private static long GenerateNextPacketID(Paket packet)
-        {
-            return packet.Id + 1;
-        }
-
+        #region Create
         public static IEnumerable<Paket> CreatePacket(IEnumerable<Paket> packets)
         {
             AddToDatabase(packets);
             return packets;
         }
 
-        public static Paket CreatePacket(long id, string name, string panel)
+        public static Paket CreatePacket(string name, string panel)
         {
+            Person personAvalible = PaVe.Program.Database.Personen.Where(p => string.Equals(p.FullName, name)).FirstOrDefault();
+            Panel panelAvalible = PaVe.Program.Database.Postfaecher.Where(p => string.Equals(p.Name, name)).FirstOrDefault();
+
             Paket packet= new Paket() 
             {
-                Id = id,
-                Person = new Person(name),
-                Panel = new Panel(panel),
+                Person = personAvalible ?? new Person(name),
+                Panel = panelAvalible ?? new Panel(panel),
             };
+
             AddToDatabase(packet);
             return packet;
         }
@@ -55,6 +48,21 @@ namespace PaVe.InterfaceLayer
             AddToDatabase(postfach);
             return postfach;
         }
+        #endregion Create
+
+        #region Get
+        public static IEnumerable<Paket> GetPacketsByID(string id)
+        {
+            return GetPacketsByID(Convert.ToInt64(id));
+        }
+
+        public static IEnumerable<Paket> GetPacketsByID(long id)
+        {
+            return PaVe.Program.Database.Pakete.GetElementsByID<Paket>(id);
+        }
+        #endregion Get
+
+        #region Delete
         public static void DeletePackets(long packetID)
         {
             DeleteFromDatabase(p => p.Id == packetID && p.Panel != null);
@@ -72,6 +80,7 @@ namespace PaVe.InterfaceLayer
         {
             DeleteFromDatabase(p => p.Panel.Name == panelName); //Delete zu Panels die Packets auch
         }
+        #endregion Delete
 
         #region Database
         private static void AddToDatabase(IEnumerable<Paket> packet)

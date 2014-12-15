@@ -11,5 +11,11 @@
     <Setting Name="CustomSqlConnection" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="XmlFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">DataLayer\IMDB\Database.xml</Value>
+    </Setting>
+    <Setting Name="UseSql" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

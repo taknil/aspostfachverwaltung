@@ -10,11 +10,10 @@ namespace PaVe.DataLayer.Tables
 {
     [Serializable]
     [Table(Name = "dbo.Paket")]
-    public class Paket
+    public class Paket : PaVe.Utils.ClassIdentify
     {
         [Column(Name = "Id", IsPrimaryKey = true, DbType = "BigInt NOT NULL")]
         public long Id;
-        //[Association(Name = "FK_DeliverPerson", ThisKey = "ID", IsForeignKey = true)]
 
         private EntityRef<Person> _Person;
         [Association(Storage = "_Person", ThisKey = "Id", IsForeignKey = true)]
@@ -28,10 +27,6 @@ namespace PaVe.DataLayer.Tables
             }
         }
 
-        //[Column(Name = "Person", DbType = "sql_variant", CanBeNull = false)]
-        //public Person Person;
-
-        //[Association(Name = "FK_PostPanel", ThisKey = "ID", IsForeignKey = true)]
         private EntityRef<Panel> _Panel;
         [Association(Storage = "_Panel", ThisKey = "Id", IsForeignKey = true)]
         public Panel Panel
@@ -43,8 +38,6 @@ namespace PaVe.DataLayer.Tables
                 Id = value.Id;
             }
         }
-        //[Column(Name = "Panel", DbType = "sql_variant", CanBeNull = true)]
-        //public Panel Panel;
         [Column(Name = "PlaceDate", DbType = "DateTime")]
         public DateTime PlaceDate;
         [Column(Name = "PostDate", DbType = "Datetime")]

@@ -53,12 +53,11 @@
             this.panelListView = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.radioButton4 = new System.Windows.Forms.RadioButton();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.SaveSettingsbutton = new System.Windows.Forms.Button();
+            this.SqlConnection_textBox = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.SqlradioButton = new System.Windows.Forms.RadioButton();
+            this.XmlradioButton = new System.Windows.Forms.RadioButton();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -66,7 +65,6 @@
             this.tabPage3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPage5.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -296,7 +294,8 @@
             // 
             // tabPage5
             // 
-            this.tabPage5.Controls.Add(this.groupBox4);
+            this.tabPage5.Controls.Add(this.SaveSettingsbutton);
+            this.tabPage5.Controls.Add(this.SqlConnection_textBox);
             this.tabPage5.Controls.Add(this.groupBox3);
             this.tabPage5.Location = new System.Drawing.Point(154, 4);
             this.tabPage5.Name = "tabPage5";
@@ -306,72 +305,57 @@
             this.tabPage5.Text = "tabPage5";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
-            // groupBox4
+            // SaveSettingsbutton
             // 
-            this.groupBox4.Controls.Add(this.radioButton4);
-            this.groupBox4.Controls.Add(this.radioButton3);
-            this.groupBox4.Location = new System.Drawing.Point(35, 167);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(200, 100);
-            this.groupBox4.TabIndex = 1;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Anzeigeoptionen";
+            this.SaveSettingsbutton.Location = new System.Drawing.Point(370, 277);
+            this.SaveSettingsbutton.Name = "SaveSettingsbutton";
+            this.SaveSettingsbutton.Size = new System.Drawing.Size(75, 23);
+            this.SaveSettingsbutton.TabIndex = 2;
+            this.SaveSettingsbutton.Text = "&Save";
+            this.SaveSettingsbutton.UseVisualStyleBackColor = true;
+            this.SaveSettingsbutton.Click += new System.EventHandler(this.SaveSettingsbutton_Click);
             // 
-            // radioButton4
+            // SqlConnection_textBox
             // 
-            this.radioButton4.AutoSize = true;
-            this.radioButton4.Location = new System.Drawing.Point(12, 52);
-            this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(41, 17);
-            this.radioButton4.TabIndex = 1;
-            this.radioButton4.TabStop = true;
-            this.radioButton4.Text = "CLI";
-            this.radioButton4.UseVisualStyleBackColor = true;
-            // 
-            // radioButton3
-            // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(12, 28);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(44, 17);
-            this.radioButton3.TabIndex = 0;
-            this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "GUI";
-            this.radioButton3.UseVisualStyleBackColor = true;
+            this.SqlConnection_textBox.Location = new System.Drawing.Point(24, 146);
+            this.SqlConnection_textBox.Name = "SqlConnection_textBox";
+            this.SqlConnection_textBox.Size = new System.Drawing.Size(421, 20);
+            this.SqlConnection_textBox.TabIndex = 1;
+            this.SqlConnection_textBox.TextChanged += new System.EventHandler(this.SqlConnection_textBox_TextChanged);
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.radioButton2);
-            this.groupBox3.Controls.Add(this.radioButton1);
-            this.groupBox3.Location = new System.Drawing.Point(35, 33);
+            this.groupBox3.Controls.Add(this.SqlradioButton);
+            this.groupBox3.Controls.Add(this.XmlradioButton);
+            this.groupBox3.Location = new System.Drawing.Point(24, 26);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(200, 100);
             this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Daten laden aus";
-            this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
             // 
-            // radioButton2
+            // SqlradioButton
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(13, 53);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(46, 17);
-            this.radioButton2.TabIndex = 1;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "SQL";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.SqlradioButton.AutoSize = true;
+            this.SqlradioButton.Location = new System.Drawing.Point(13, 53);
+            this.SqlradioButton.Name = "SqlradioButton";
+            this.SqlradioButton.Size = new System.Drawing.Size(46, 17);
+            this.SqlradioButton.TabIndex = 1;
+            this.SqlradioButton.Text = "SQL";
+            this.SqlradioButton.UseVisualStyleBackColor = true;
             // 
-            // radioButton1
+            // XmlradioButton
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(12, 29);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(47, 17);
-            this.radioButton1.TabIndex = 0;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "XML";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.XmlradioButton.AutoSize = true;
+            this.XmlradioButton.Checked = true;
+            this.XmlradioButton.Location = new System.Drawing.Point(12, 29);
+            this.XmlradioButton.Name = "XmlradioButton";
+            this.XmlradioButton.Size = new System.Drawing.Size(47, 17);
+            this.XmlradioButton.TabIndex = 0;
+            this.XmlradioButton.TabStop = true;
+            this.XmlradioButton.Text = "XML";
+            this.XmlradioButton.UseVisualStyleBackColor = true;
+            this.XmlradioButton.CheckedChanged += new System.EventHandler(this.XmlradioButton_CheckedChanged);
             // 
             // MainGui
             // 
@@ -393,8 +377,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.tabPage5.ResumeLayout(false);
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
+            this.tabPage5.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
@@ -427,12 +410,11 @@
         private System.Windows.Forms.ListView nutzerListView;
         private System.Windows.Forms.ColumnHeader Nutzer;
         private System.Windows.Forms.TabPage tabPage5;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.RadioButton radioButton4;
-        private System.Windows.Forms.RadioButton radioButton3;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton SqlradioButton;
+        private System.Windows.Forms.RadioButton XmlradioButton;
+        private System.Windows.Forms.Button SaveSettingsbutton;
+        private System.Windows.Forms.TextBox SqlConnection_textBox;
 
         
             

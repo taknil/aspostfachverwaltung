@@ -37,8 +37,17 @@ namespace PaVe.InterfaceLayer.GUI
 
         private void GUI_Shown(object sender, EventArgs e)
         {
+            refreshSettings();
             refreshPaketListItems();
             refreshNameList();
+        }
+
+        private void refreshSettings()
+        {
+            SqlradioButton.Checked = PaVe.DataLayer.DataSettings.Default.UseSql;
+            SqlConnection_textBox.Text = string.IsNullOrEmpty(PaVe.DataLayer.DataSettings.Default.CustomSqlConnection) ?
+                PaVe.DataLayer.DataSettings.Default.Connection : PaVe.DataLayer.DataSettings.Default.CustomSqlConnection;
+            SqlConnection_textBox.ReadOnly = !PaVe.DataLayer.DataSettings.Default.UseSql;
         }
 
         private void refreshNameList()
@@ -49,7 +58,6 @@ namespace PaVe.InterfaceLayer.GUI
             {
                 Console.WriteLine(person.FullName);
                 nutzerListView.Items.Add(person.FullName);
-
             }
         }
 
@@ -151,7 +159,7 @@ namespace PaVe.InterfaceLayer.GUI
             if (string.IsNullOrEmpty(tbNutzerName.Text))
                 return;
 
-            BackendWrapper.CreatePostfach(tbNutzerName.Text);
+            BackendWrapper.CreatePerson(tbNutzerName.Text);
             nutzerListView.Items.Add(tbNutzerName.Text);
         }
 
@@ -159,21 +167,47 @@ namespace PaVe.InterfaceLayer.GUI
         {
             ListViewItem fItem = nutzerListView.FocusedItem;
             //Remove from Database
-            BackendWrapper.DeletePanels(fItem.Text);
+            BackendWrapper.DeletePerson(fItem.Text);
             //Remove from ListView
             nutzerListView.Items.Remove(fItem);
         }
 
-        private void groupBox3_Enter(object sender, EventArgs e)
-        {
-
-        }
-
         private void ausbuchenBtn_Click(object sender, EventArgs e)
         {
-        
+            ListViewItem fItem = paketListView.FocusedItem;
+            if (fItem == null)
+                return;
+
+            BackendWrapper.DeletePackets(Convert.ToInt64(fItem.Text));
         }
 
+        private void SaveSettingsbutton_Click(object sender, EventArgs e)
+        {
+            PaVe.DataLayer.DataSettings.Default.UseSql = SqlradioButton.Checked;
+            PaVe.DataLayer.DataSettings.Default.CustomSqlConnection = SqlConnection_textBox.Text;
+            PaVe.DataLayer.DataSettings.Default.Save();
+            SaveSettingsbutton.ForeColor = Color.Green;
+        }
 
+        private void XmlradioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            SaveSettingsbutton.ForeColor = Color.Black;
+
+            if (XmlradioButton.Checked)
+            {
+                SqlradioButton.Checked = false;
+                SqlConnection_textBox.ReadOnly = true;
+            }
+            else
+            {
+                SqlradioButton.Checked = true;
+                SqlConnection_textBox.ReadOnly = false;
+            }
+        }
+
+        private void SqlConnection_textBox_TextChanged(object sender, EventArgs e)
+        {
+            SaveSettingsbutton.ForeColor = Color.Black;
+        }
     }
 }

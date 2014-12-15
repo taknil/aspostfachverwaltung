@@ -9,6 +9,12 @@ using System.Windows.Forms;
 
 namespace PaVe.Utils
 {
+    [Serializable]
+    public abstract class ClassIdentify
+    {
+        public long Id;
+    }
+
     public static class StringExtensions
     {
         public static bool Contains(this string source, string value, StringComparison compareMode)
@@ -39,12 +45,14 @@ namespace PaVe.Utils
         {
             HashSet<TKey> seenKeys = new HashSet<TKey>();
             foreach (TSource element in source)
-            {
                 if (seenKeys.Add(keySelector(element)))
-                {
                     yield return element;
-                }
-            }
+        }
+
+        public static IEnumerable<TSource> GetElementsByID<TSource>(this IEnumerable<TSource> elements, long id) 
+            where TSource : PaVe.Utils.ClassIdentify
+        {
+            return elements.Where(e => e.Id == id);
         }
     }
 }

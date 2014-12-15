@@ -48,7 +48,7 @@ namespace PaVe.InterfaceLayer.CLI
             string input = string.Empty;
             do
             {
-                if (current == Page.PacketList)
+                if (current == Page.PacketList || current == Page.PersonList)
                 {
                     input = Console.ReadLine();
                     InputMapping(ref current, ref input);
@@ -81,8 +81,12 @@ namespace PaVe.InterfaceLayer.CLI
                     input = string.Empty;
                     break;
                 default:
-                    if (PaVe.Program.Database.Pakete.Any(p => string.Equals(p.Id, tmp)))
-                        Load(current, tmp);
+                    if(current == Page.PacketList)
+                        if (PaVe.Program.Database.Pakete.Any(p => string.Equals(p.Id, tmp)))
+                            Load(current, tmp);
+                    else if(current == Page.PersonList)
+                        if (PaVe.Program.Database.Personen.Any(p => string.Equals(p.Id, tmp)))
+                            Load(current, tmp);
                     break;
 
             }
@@ -174,20 +178,22 @@ namespace PaVe.InterfaceLayer.CLI
         {
             if (pointer == Page.PacketList)
             {
-                //Remove List for Refresh
                 if (Index.ContainsKey(pointer))
                     Index.Remove(pointer);
 
-                Index.Add(Page.PacketList, CreateList(input)
+                Index.Add(Page.PacketList, CreatePacketList(input)
                     .Select(p => string.Format("\tPacket ID {0}\r\n\t\tPostfach: {1}\r\n\t\tPerson: {2}", p.Id, p.Panel, p.Person))
                     .ToArray());
             }
-
-            if (pointer == Page.PersonList)
+            else if (pointer == Page.PersonList)
             {
-                throw new NotImplementedException();
-            }
+                if (Index.ContainsKey(pointer))
+                    Index.Remove(pointer);
 
+                Index.Add(Page.PersonList, CreatePersonList(input)
+                    .Select(p => string.Format("\tPerson ID {0}\r\n\t\tName: {1}", p.Id, p.FullName))
+                    .ToArray());
+            }
         }
 
         private void Refresh()
@@ -214,7 +220,7 @@ namespace PaVe.InterfaceLayer.CLI
             }
         }
 
-        private IEnumerable<PaVe.DataLayer.Tables.Paket> CreateList(string filter)
+        private IEnumerable<PaVe.DataLayer.Tables.Paket> CreatePacketList(string filter)
         {
             return PaVe.Program.Database.Pakete
                 .Where(p =>
@@ -224,6 +230,14 @@ namespace PaVe.InterfaceLayer.CLI
                     p.Person.ToString().Contains(filter));
         }
 
+        private IEnumerable<PaVe.DataLayer.Tables.Person> CreatePersonList(string filter)
+        {
+            return PaVe.Program.Database.Personen
+                .Where(p =>
+                    string.IsNullOrEmpty(filter) ||
+                    p.Id.ToString().Contains(filter) ||
+                    p.FullName.ToString().Contains(filter));
+        }
 
 
         private static Dictionary<Page, string[]> initIndex()

@@ -9,7 +9,7 @@ namespace PaVe.DataLayer.Tables
 {
     [Serializable]
     [Table(Name = "dbo.Person")]
-    public class Person
+    public class Person : PaVe.Utils.ClassIdentify
     {
         [Column(Name = "Id", IsPrimaryKey = true, DbType = "BigInt NOT NULL")]
         public long Id;

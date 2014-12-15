@@ -59,5 +59,29 @@ namespace PaVe.DataLayer {
                 this["CustomSqlConnection"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("DataLayer\\IMDB\\Database.xml")]
+        public string XmlFile {
+            get {
+                return ((string)(this["XmlFile"]));
+            }
+            set {
+                this["XmlFile"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UseSql {
+            get {
+                return ((bool)(this["UseSql"]));
+            }
+            set {
+                this["UseSql"] = value;
+            }
+        }
     }
 }
