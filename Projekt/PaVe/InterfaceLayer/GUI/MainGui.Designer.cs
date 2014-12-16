@@ -31,9 +31,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainGui));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.eincheckenBtn = new System.Windows.Forms.Button();
-            this.umlagernBtn = new System.Windows.Forms.Button();
-            this.ausbuchenBtn = new System.Windows.Forms.Button();
+            this.paketEincheckenBtn = new System.Windows.Forms.Button();
+            this.paketUmbuchenBtn = new System.Windows.Forms.Button();
+            this.paketAusbuchenBtn = new System.Windows.Forms.Button();
             this.paketListView = new System.Windows.Forms.ListView();
             this.PaketID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Aufgabedatum = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -47,10 +47,10 @@
             this.Nutzer = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.createPanelBtn = new System.Windows.Forms.Button();
-            this.panelNameTb = new System.Windows.Forms.TextBox();
-            this.loeschePanelBtn = new System.Windows.Forms.Button();
-            this.panelListView = new System.Windows.Forms.ListView();
+            this.createPostfachBtn = new System.Windows.Forms.Button();
+            this.postfachNameTb = new System.Windows.Forms.TextBox();
+            this.loeschePostfachBtn = new System.Windows.Forms.Button();
+            this.postfachlListView = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.SaveSettingsbutton = new System.Windows.Forms.Button();
@@ -88,9 +88,9 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.eincheckenBtn);
-            this.tabPage1.Controls.Add(this.umlagernBtn);
-            this.tabPage1.Controls.Add(this.ausbuchenBtn);
+            this.tabPage1.Controls.Add(this.paketEincheckenBtn);
+            this.tabPage1.Controls.Add(this.paketUmbuchenBtn);
+            this.tabPage1.Controls.Add(this.paketAusbuchenBtn);
             this.tabPage1.Controls.Add(this.paketListView);
             this.tabPage1.Location = new System.Drawing.Point(154, 4);
             this.tabPage1.Name = "tabPage1";
@@ -100,34 +100,35 @@
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // eincheckenBtn
+            // paketEincheckenBtn
             // 
-            this.eincheckenBtn.Location = new System.Drawing.Point(362, 6);
-            this.eincheckenBtn.Name = "eincheckenBtn";
-            this.eincheckenBtn.Size = new System.Drawing.Size(93, 32);
-            this.eincheckenBtn.TabIndex = 4;
-            this.eincheckenBtn.Text = "Einchecken";
-            this.eincheckenBtn.UseVisualStyleBackColor = true;
-            this.eincheckenBtn.Click += new System.EventHandler(this.eincheckenBtn_Click);
+            this.paketEincheckenBtn.Location = new System.Drawing.Point(362, 6);
+            this.paketEincheckenBtn.Name = "paketEincheckenBtn";
+            this.paketEincheckenBtn.Size = new System.Drawing.Size(93, 32);
+            this.paketEincheckenBtn.TabIndex = 4;
+            this.paketEincheckenBtn.Text = "Einchecken";
+            this.paketEincheckenBtn.UseVisualStyleBackColor = true;
+            this.paketEincheckenBtn.Click += new System.EventHandler(this.eincheckenBtn_Click);
             // 
-            // umlagernBtn
+            // paketUmbuchenBtn
             // 
-            this.umlagernBtn.Location = new System.Drawing.Point(118, 6);
-            this.umlagernBtn.Name = "umlagernBtn";
-            this.umlagernBtn.Size = new System.Drawing.Size(93, 32);
-            this.umlagernBtn.TabIndex = 2;
-            this.umlagernBtn.Text = "Umbuchen";
-            this.umlagernBtn.UseVisualStyleBackColor = true;
+            this.paketUmbuchenBtn.Location = new System.Drawing.Point(118, 6);
+            this.paketUmbuchenBtn.Name = "paketUmbuchenBtn";
+            this.paketUmbuchenBtn.Size = new System.Drawing.Size(93, 32);
+            this.paketUmbuchenBtn.TabIndex = 2;
+            this.paketUmbuchenBtn.Text = "Umbuchen";
+            this.paketUmbuchenBtn.UseVisualStyleBackColor = true;
+            this.paketUmbuchenBtn.Click += new System.EventHandler(this.paketUmbuchenBtn_Click);
             // 
-            // ausbuchenBtn
+            // paketAusbuchenBtn
             // 
-            this.ausbuchenBtn.Location = new System.Drawing.Point(19, 6);
-            this.ausbuchenBtn.Name = "ausbuchenBtn";
-            this.ausbuchenBtn.Size = new System.Drawing.Size(93, 32);
-            this.ausbuchenBtn.TabIndex = 1;
-            this.ausbuchenBtn.Text = "Ausbuchen";
-            this.ausbuchenBtn.UseVisualStyleBackColor = true;
-            this.ausbuchenBtn.Click += new System.EventHandler(this.ausbuchenBtn_Click);
+            this.paketAusbuchenBtn.Location = new System.Drawing.Point(19, 6);
+            this.paketAusbuchenBtn.Name = "paketAusbuchenBtn";
+            this.paketAusbuchenBtn.Size = new System.Drawing.Size(93, 32);
+            this.paketAusbuchenBtn.TabIndex = 1;
+            this.paketAusbuchenBtn.Text = "Ausbuchen";
+            this.paketAusbuchenBtn.UseVisualStyleBackColor = true;
+            this.paketAusbuchenBtn.Click += new System.EventHandler(this.ausbuchenBtn_Click);
             // 
             // paketListView
             // 
@@ -173,7 +174,7 @@
             // 
             // deleteNutzerBtn
             // 
-            this.deleteNutzerBtn.Location = new System.Drawing.Point(285, 192);
+            this.deleteNutzerBtn.Location = new System.Drawing.Point(285, 250);
             this.deleteNutzerBtn.Name = "deleteNutzerBtn";
             this.deleteNutzerBtn.Size = new System.Drawing.Size(162, 36);
             this.deleteNutzerBtn.TabIndex = 2;
@@ -211,11 +212,12 @@
             // 
             // nutzerListView
             // 
+            this.nutzerListView.AccessibleDescription = "s";
             this.nutzerListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.Nutzer});
             this.nutzerListView.Location = new System.Drawing.Point(0, 0);
             this.nutzerListView.Name = "nutzerListView";
-            this.nutzerListView.Size = new System.Drawing.Size(273, 300);
+            this.nutzerListView.Size = new System.Drawing.Size(273, 310);
             this.nutzerListView.TabIndex = 0;
             this.nutzerListView.UseCompatibleStateImageBehavior = false;
             this.nutzerListView.View = System.Windows.Forms.View.Details;
@@ -228,8 +230,8 @@
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.groupBox1);
-            this.tabPage3.Controls.Add(this.loeschePanelBtn);
-            this.tabPage3.Controls.Add(this.panelListView);
+            this.tabPage3.Controls.Add(this.loeschePostfachBtn);
+            this.tabPage3.Controls.Add(this.postfachlListView);
             this.tabPage3.Location = new System.Drawing.Point(154, 4);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
@@ -240,8 +242,8 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.createPanelBtn);
-            this.groupBox1.Controls.Add(this.panelNameTb);
+            this.groupBox1.Controls.Add(this.createPostfachBtn);
+            this.groupBox1.Controls.Add(this.postfachNameTb);
             this.groupBox1.Location = new System.Drawing.Point(279, 6);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(175, 117);
@@ -249,43 +251,43 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Postfach erstellen";
             // 
-            // createPanelBtn
+            // createPostfachBtn
             // 
-            this.createPanelBtn.Location = new System.Drawing.Point(6, 58);
-            this.createPanelBtn.Name = "createPanelBtn";
-            this.createPanelBtn.Size = new System.Drawing.Size(155, 36);
-            this.createPanelBtn.TabIndex = 1;
-            this.createPanelBtn.Text = "Erstellen";
-            this.createPanelBtn.UseVisualStyleBackColor = true;
-            this.createPanelBtn.Click += new System.EventHandler(this.createPanelBtn_Click);
+            this.createPostfachBtn.Location = new System.Drawing.Point(6, 58);
+            this.createPostfachBtn.Name = "createPostfachBtn";
+            this.createPostfachBtn.Size = new System.Drawing.Size(162, 36);
+            this.createPostfachBtn.TabIndex = 1;
+            this.createPostfachBtn.Text = "Erstellen";
+            this.createPostfachBtn.UseVisualStyleBackColor = true;
+            this.createPostfachBtn.Click += new System.EventHandler(this.erstellePostfachBtn_Click);
             // 
-            // panelNameTb
+            // postfachNameTb
             // 
-            this.panelNameTb.Location = new System.Drawing.Point(6, 32);
-            this.panelNameTb.Name = "panelNameTb";
-            this.panelNameTb.Size = new System.Drawing.Size(155, 20);
-            this.panelNameTb.TabIndex = 3;
+            this.postfachNameTb.Location = new System.Drawing.Point(6, 32);
+            this.postfachNameTb.Name = "postfachNameTb";
+            this.postfachNameTb.Size = new System.Drawing.Size(162, 20);
+            this.postfachNameTb.TabIndex = 3;
             // 
-            // loeschePanelBtn
+            // loeschePostfachBtn
             // 
-            this.loeschePanelBtn.Location = new System.Drawing.Point(296, 250);
-            this.loeschePanelBtn.Name = "loeschePanelBtn";
-            this.loeschePanelBtn.Size = new System.Drawing.Size(144, 36);
-            this.loeschePanelBtn.TabIndex = 2;
-            this.loeschePanelBtn.Text = "Postfach löschen";
-            this.loeschePanelBtn.UseVisualStyleBackColor = true;
-            this.loeschePanelBtn.Click += new System.EventHandler(this.loeschePanelBtn_Click);
+            this.loeschePostfachBtn.Location = new System.Drawing.Point(285, 250);
+            this.loeschePostfachBtn.Name = "loeschePostfachBtn";
+            this.loeschePostfachBtn.Size = new System.Drawing.Size(162, 36);
+            this.loeschePostfachBtn.TabIndex = 2;
+            this.loeschePostfachBtn.Text = "Postfach löschen";
+            this.loeschePostfachBtn.UseVisualStyleBackColor = true;
+            this.loeschePostfachBtn.Click += new System.EventHandler(this.loeschePostfachBtn_Click);
             // 
-            // panelListView
+            // postfachlListView
             // 
-            this.panelListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.postfachlListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
-            this.panelListView.Location = new System.Drawing.Point(0, 0);
-            this.panelListView.Name = "panelListView";
-            this.panelListView.Size = new System.Drawing.Size(273, 310);
-            this.panelListView.TabIndex = 0;
-            this.panelListView.UseCompatibleStateImageBehavior = false;
-            this.panelListView.View = System.Windows.Forms.View.Details;
+            this.postfachlListView.Location = new System.Drawing.Point(0, 0);
+            this.postfachlListView.Name = "postfachlListView";
+            this.postfachlListView.Size = new System.Drawing.Size(273, 310);
+            this.postfachlListView.TabIndex = 0;
+            this.postfachlListView.UseCompatibleStateImageBehavior = false;
+            this.postfachlListView.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader1
             // 
@@ -359,6 +361,7 @@
             // 
             // MainGui
             // 
+            this.AccessibleDescription = "s";
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(686, 392);
@@ -394,14 +397,14 @@
         private System.Windows.Forms.ColumnHeader PaketID;
         private System.Windows.Forms.ColumnHeader Aufgabedatum;
         private System.Windows.Forms.ColumnHeader Empfänger;
-        private System.Windows.Forms.Button eincheckenBtn;
-        private System.Windows.Forms.Button umlagernBtn;
-        private System.Windows.Forms.Button ausbuchenBtn;
-        private System.Windows.Forms.Button loeschePanelBtn;
-        private System.Windows.Forms.Button createPanelBtn;
-        private System.Windows.Forms.ListView panelListView;
+        private System.Windows.Forms.Button paketEincheckenBtn;
+        private System.Windows.Forms.Button paketUmbuchenBtn;
+        private System.Windows.Forms.Button paketAusbuchenBtn;
+        private System.Windows.Forms.Button loeschePostfachBtn;
+        private System.Windows.Forms.Button createPostfachBtn;
+        private System.Windows.Forms.ListView postfachlListView;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox panelNameTb;
+        private System.Windows.Forms.TextBox postfachNameTb;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.Button deleteNutzerBtn;
         private System.Windows.Forms.GroupBox groupBox2;

@@ -29,6 +29,15 @@ namespace PaVe.InterfaceLayer.GUI
             cbEmpfaenger.SelectedIndex = 0;
         }
 
+        public AddPacketForm(PaVe.DataLayer.Tables.Paket paket)
+        {
+            InitializeComponent();
+            int postfachIndex = postfachCb.Items.IndexOf(paket.Panel.Name);
+            postfachCb.SelectedIndex = postfachIndex;
+            int nutzerIndex = cbEmpfaenger.Items.IndexOf(paket.Person.FullName);
+            cbEmpfaenger.SelectedIndex = nutzerIndex;
+        }
+
         private void AddPacketForm_Shown(object sender, EventArgs e)
         {
             Debug.WriteLine("Start add Items");
@@ -39,8 +48,8 @@ namespace PaVe.InterfaceLayer.GUI
         private void addItemsToCombobox()
         {
             Debug.WriteLine("Start add Items");
-            string[] panels = PaVe.Program.Database.Pakete
-                    .Select(p => p.Panel.Name )
+            string[] panels = PaVe.Program.Database.Postfaecher
+                    .Select(p => p.Name )
                     .Distinct()
                     .ToArray();
             Debug.WriteLine(panels.Length);
@@ -57,8 +66,15 @@ namespace PaVe.InterfaceLayer.GUI
         private void packetEinbuchenBtn_Click(object sender, EventArgs e)
         {
             string name = cbEmpfaenger.SelectedItem.ToString();
+            if (name.Equals(DefaultEmpfaengerCbText))
+            {
+                return;
+            }
             string panel = postfachCb.SelectedItem.ToString();
-
+            if (panel.Equals(DefaultPostfachCbText))
+            {
+                return;
+            }
             if(string.Equals(panel, DefaultPostfachCbText) == false)
                 BackendWrapper.CreatePacket(name, panel);
 

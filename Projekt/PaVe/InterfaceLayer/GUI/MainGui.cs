@@ -40,6 +40,7 @@ namespace PaVe.InterfaceLayer.GUI
             refreshSettings();
             refreshPaketListItems();
             refreshNameList();
+            refreshPostfachListItems();
         }
 
         private void refreshSettings()
@@ -56,8 +57,27 @@ namespace PaVe.InterfaceLayer.GUI
             nutzerListView.Items.Clear();
             foreach (Person person in PaVe.Program.Database.Personen)
             {
-                Console.WriteLine(person.FullName);
-                nutzerListView.Items.Add(person.FullName);
+                if (postfachlListView.FindItemWithText(person.FullName) == null)
+                {
+                    Console.WriteLine(person.FullName);
+                    nutzerListView.Items.Add(person.FullName);
+                }
+                
+            }
+        }
+
+        private void refreshPostfachListItems()
+        {
+            Console.WriteLine("refresh postfaecher");
+            postfachlListView.Items.Clear();
+            foreach (PaVe.DataLayer.Tables.Panel panel in PaVe.Program.Database.Postfaecher)
+            {
+                //ListViewItem listViewItem = new ListViewItem(packet.Panel.Name);
+                if (postfachlListView.FindItemWithText(panel.Name) == null)
+                {
+                    postfachlListView.Items.Add(panel.Name);
+                }
+                
             }
         }
 
@@ -65,7 +85,6 @@ namespace PaVe.InterfaceLayer.GUI
         {
             Console.WriteLine("refresh pakets");
             paketListView.Items.Clear();
-            panelListView.Items.Clear();
             Dictionary<string, ListViewItem[]> panelNode = new Dictionary<string, ListViewItem[]>();
             
             foreach (Paket packet in PaVe.Program.Database.Pakete)
@@ -75,7 +94,7 @@ namespace PaVe.InterfaceLayer.GUI
 
                 ListViewGroup group = new ListViewGroup("Postfach " + packet.Panel.Name);
                 paketListView.Groups.Add(group);
-                panelListView.Items.Add(packet.Panel.Name);
+                
 
                 ListViewItem[] childs = PaVe.Program.Database.Pakete
                     .Where(element => string.Equals(element.Panel.Name, packet.Panel.Name))
@@ -135,23 +154,23 @@ namespace PaVe.InterfaceLayer.GUI
             addPacketForm.ShowDialog();
         }
 
-        private void createPanelBtn_Click(object sender, EventArgs e)
+        private void erstellePostfachBtn_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(panelNameTb.Text))
+            if (string.IsNullOrEmpty(postfachNameTb.Text))
                 return;
 
-            BackendWrapper.CreatePostfach(panelNameTb.Text);
-            panelListView.Items.Add(panelNameTb.Text);
+            BackendWrapper.CreatePostfach(postfachNameTb.Text);
+            refreshPostfachListItems();
             
         }
 
-        private void loeschePanelBtn_Click(object sender, EventArgs e)
+        private void loeschePostfachBtn_Click(object sender, EventArgs e)
         {
-            ListViewItem fItem = panelListView.FocusedItem;
+            ListViewItem fItem = postfachlListView.FocusedItem;
             //Remove from Database
-            BackendWrapper.DeletePanels(fItem.Text);
+            BackendWrapper.DeletePostfach(fItem.Text);
             //Remove from ListView
-            panelListView.Items.Remove(fItem);
+            refreshPostfachListItems();
         }
 
         private void addNutzerBtn_Click(object sender, EventArgs e)
@@ -160,7 +179,7 @@ namespace PaVe.InterfaceLayer.GUI
                 return;
 
             BackendWrapper.CreatePerson(tbNutzerName.Text);
-            nutzerListView.Items.Add(tbNutzerName.Text);
+            refreshNameList();
         }
 
         private void deleteNutzerBtn_Click(object sender, EventArgs e)
@@ -169,7 +188,7 @@ namespace PaVe.InterfaceLayer.GUI
             //Remove from Database
             BackendWrapper.DeletePerson(fItem.Text);
             //Remove from ListView
-            nutzerListView.Items.Remove(fItem);
+            refreshNameList();
         }
 
         private void ausbuchenBtn_Click(object sender, EventArgs e)
@@ -179,6 +198,7 @@ namespace PaVe.InterfaceLayer.GUI
                 return;
 
             BackendWrapper.DeletePackets(Convert.ToInt64(fItem.Text));
+            refreshPaketListItems();
         }
 
         private void SaveSettingsbutton_Click(object sender, EventArgs e)
@@ -209,5 +229,16 @@ namespace PaVe.InterfaceLayer.GUI
         {
             SaveSettingsbutton.ForeColor = Color.Black;
         }
+
+        private void paketUmbuchenBtn_Click(object sender, EventArgs e)
+        {
+            ListViewItem fItem = paketListView.FocusedItem;
+            if (fItem == null)
+                return;
+
+            AddPacketForm addPacketForm = new AddPacketForm();
+            addPacketForm.ShowDialog();
+        }
+
     }
 }
