@@ -20,6 +20,9 @@ namespace PaVe.InterfaceLayer.GUI
         private const string DefaultPostfachCbText = "-WÄHLE POSTFACH-";
         private const string DefaultEmpfaengerCbText = "-WÄHLE EMPFÄNGER-";
 
+        private bool EditPaket = false;
+        private Paket paket;
+
         public AddPacketForm()
         {
             InitializeComponent();
@@ -32,10 +35,11 @@ namespace PaVe.InterfaceLayer.GUI
         public AddPacketForm(PaVe.DataLayer.Tables.Paket paket)
         {
             InitializeComponent();
-            int postfachIndex = postfachCb.Items.IndexOf(paket.Panel.Name);
-            postfachCb.SelectedIndex = postfachIndex;
-            int nutzerIndex = cbEmpfaenger.Items.IndexOf(paket.Person.FullName);
-            cbEmpfaenger.SelectedIndex = nutzerIndex;
+            this.paket = paket;
+            this.EditPaket = true;
+            postfachCb.SelectedIndex = postfachCb.Items.IndexOf(paket.Panel.Name);
+            cbEmpfaenger.SelectedIndex = cbEmpfaenger.Items.IndexOf(paket.Person.FullName);
+            cbEmpfaenger.Enabled = false;
         }
 
         private void AddPacketForm_Shown(object sender, EventArgs e)
@@ -61,6 +65,12 @@ namespace PaVe.InterfaceLayer.GUI
                     .ToArray();
             Debug.WriteLine(empfaenger.Length);
             cbEmpfaenger.Items.AddRange(empfaenger);
+            if (EditPaket)
+            {
+                postfachCb.SelectedIndex = postfachCb.Items.IndexOf(paket.Panel.Name);
+                cbEmpfaenger.SelectedIndex = cbEmpfaenger.Items.IndexOf(paket.Person.FullName);
+
+            }
         }
 
         private void packetEinbuchenBtn_Click(object sender, EventArgs e)
@@ -74,6 +84,9 @@ namespace PaVe.InterfaceLayer.GUI
             if (panel.Equals(DefaultPostfachCbText))
             {
                 return;
+            }
+            if (EditPaket) {
+                BackendWrapper.DeletePackets(paket.Id);
             }
             if(string.Equals(panel, DefaultPostfachCbText) == false)
                 BackendWrapper.CreatePacket(name, panel);

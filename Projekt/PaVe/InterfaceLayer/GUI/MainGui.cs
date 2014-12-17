@@ -235,9 +235,22 @@ namespace PaVe.InterfaceLayer.GUI
             ListViewItem fItem = paketListView.FocusedItem;
             if (fItem == null)
                 return;
-
-            AddPacketForm addPacketForm = new AddPacketForm();
-            addPacketForm.ShowDialog();
+            Console.WriteLine(fItem.Text);
+            
+           // IEnumerable<Paket> paket = BackendWrapper.GetPacketsByID(Convert.ToInt64(fItem.Text));
+            long selectedId = Convert.ToInt64(fItem.Text);
+            foreach (Paket p in PaVe.Program.Database.Pakete)
+            {
+                Console.WriteLine(p);
+                if (p.Id == selectedId)
+                {
+                    AddPacketForm addPacketForm = new AddPacketForm(p);
+                    addPacketForm.ShowDialog();
+                    break;
+                }
+                
+            }
+            
         }
 
     }
